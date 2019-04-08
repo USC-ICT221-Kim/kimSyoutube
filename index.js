@@ -1,3 +1,10 @@
-console.log("Hello Node JS");
+const express = require('express');
+const app = express();
 
-console.log("This is Full-Stack Project");
+const PORT = 4000;
+
+function handleListening(){
+    console.log(`Listening on: http://localhost:${PORT}`);
+}
+
+app.listen(PORT, handleListening);
