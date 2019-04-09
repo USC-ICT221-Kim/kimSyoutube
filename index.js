@@ -1,20 +1,17 @@
-const express = require('express');
+import express from 'express';
+
+
 const app = express();
 
 const PORT = 4000;
 
-function handleListening(){
-    console.log(`Listening on: http://localhost:${PORT}`);
-}
+//Same function
+// using arrow function looks much better (easy to understand)
+const  handleListening = () => console.log(`Listening on: http://localhost:${PORT}`);
 
-function handlHome(req, res){
-    console.log(req);
-    res.send("Hello from Home");
-}
+const handlHome = (req, res) => res.send("Hello from Home");
 
-function handleProfile(req, res){
-    res.send("Your on my Profile");
-}
+const handleProfile = (req, res) => res.send("Your on my Profile");
 
 app.get("/", handlHome);
 
