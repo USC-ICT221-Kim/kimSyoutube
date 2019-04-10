@@ -8,29 +8,31 @@ const SEARCH = "/search";
 
 //Users
 
-const USERS = "/users";
+const USER = "/user";
 const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
 
 //Videos
 
-const VIDEO = "/videos";
+const VIDEO = "/video";
 const UPLOADVIDEO = "/upload";
 const VIDEO_DETAIL = "/:id";
 const EDIT_VIDEO = "/:id/edit";
 const DELETE_VIDEO = ":id/delete";
 
-const route = {
+const routes = {
     home: HOME,
     join: JOIN,
     login: LOGIN,
     logout: LOGOUT,
     search: SEARCH,
-    users: USERS,
-    userDeatil: USER_DETAIL,
+
+    user: USER,
+    userDetail: USER_DETAIL,
     editProfile: EDIT_PROFILE,
     changePassword: CHANGE_PASSWORD,
+    
     video: VIDEO,
     uploadVideo: UPLOADVIDEO,
     videoDetail: VIDEO_DETAIL,
@@ -39,4 +41,4 @@ const route = {
 
 };
 
-export default route;
+export default routes;
