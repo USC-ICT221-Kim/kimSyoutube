@@ -10,6 +10,7 @@ import routes from './routes';
 
 const app = express();
 
+app.set("view engine", "pug");
 app.use(cookieparser());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended : true}));
