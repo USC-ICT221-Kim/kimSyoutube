@@ -2,8 +2,8 @@ extends layouts/main
 
 block content 
     .join  
-        .form_container
-            form(action = "/login", method = "post")
+        .form-container
+            form(action = routes.join, method = "post")
                 input(type = "text", name = "name", placeholder = "Full Name")
                 input(type = "Email", name = "Email", placeholder = "Email")
                 input(type = "Password", name = "Password", placeholder = "Password")

@@ -2,11 +2,14 @@
 
 Full stack Project (Cloning Youtube) using Vanilla and Node JS
 
-Skills: babel (env) nodemon(server execution), helmet(security) body-parser and cookie-parser (middleware)
+##Skills 
+babel (env) nodemon(server execution), helmet(security) body-parser and cookie-parser (middleware) 
+pug for the simpler html syntax
+
 
 ## page
 - [] Home
-- [] Join
+- [X] Join
 - [X] Search
 - [x] Log In
 - [] Change Password
