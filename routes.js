@@ -19,7 +19,7 @@ const VIDEO = "/video";
 const UPLOADVIDEO = "/upload";
 const VIDEO_DETAIL = "/:id";
 const EDIT_VIDEO = "/:id/edit";
-const DELETE_VIDEO = ":id/delete";
+const DELETE_VIDEO = "/:id/delete";
 
 const routes = {
     home: HOME,
@@ -55,7 +55,13 @@ const routes = {
             return EDIT_VIDEO
         }
     },
-    deleteVideo: DELETE_VIDEO
+    deleteVideo: (id) => {
+        if (id) {
+            return `/video/${id}/delete`;
+        } else {
+            return DELETE_VIDEO
+        }
+    }
 
 };
 
