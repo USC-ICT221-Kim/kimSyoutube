@@ -6,14 +6,14 @@ const LOGIN = "/login";
 const LOGOUT = "/logout";
 const SEARCH = "/search";
 
-//Users
+// Users
 
 const USER = "/user";
 const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
 
-//Videos
+// Videos
 
 const VIDEO = "/video";
 const UPLOADVIDEO = "/upload";
@@ -32,9 +32,8 @@ const routes = {
     userDetail: (id) =>{
         if(id){
             return `/user/${id}`;
-        } else {
+        } 
             return USER_DETAIL
-        }
     },
     editProfile: EDIT_PROFILE,
     changePassword: CHANGE_PASSWORD,
@@ -44,24 +43,21 @@ const routes = {
     videoDetail: (id) =>{
         if(id){
             return `/video/${id}`;
-        } else {
+        } 
             return VIDEO_DETAIL
-        }
     },
     editVideo: (id) => {
         if (id){
             return `/video/${id}/edit`;
-        } else {
+        } 
             return EDIT_VIDEO
-        }
-    },
+        },
     deleteVideo: (id) => {
         if (id) {
             return `/video/${id}/delete`;
-        } else {
+        } 
             return DELETE_VIDEO
         }
-    }
 
 };
 

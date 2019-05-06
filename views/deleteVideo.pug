@@ -1,4 +1,5 @@
 extends layouts/main
 
 block content 
-    p Delete Video
+    p Video Delete Successfully
+    a.form-container__link.form-container__link--delete(href=routes.deleteVideo(video.id)) Delete Video

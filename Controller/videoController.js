@@ -4,10 +4,8 @@ import Video from "../Models/Video";
 export const home = async (req, res) => {
     try{
         const videos = await Video.find({}).sort({_id : -1});
-        console.log(videos);
         res.render("home", { pageTitle : "Home", videos});
     } catch(error) {
-        console.log(error);
         res.render("home", { pageTitle : "Home", videos: []});
     }
     
@@ -16,8 +14,7 @@ export const home = async (req, res) => {
 // Search
 
 export const search = async (req, res) => {
-    // This is Old One
-    //const searchingBy = req.query.term;
+   
     const { 
         query: {term : searchingBy}
     } = req;
@@ -25,9 +22,9 @@ export const search = async (req, res) => {
     try {
         videos = await Video.find({
             title : {$regex : searchingBy, $options : "i"}});
-    } catch (error) {
-        console.log(error);
-    }
+            
+    // eslint-disable-next-line no-empty
+    } catch (error) {}
     res.render("search", { pageTitle : "Search", searchingBy, videos});
 
 }
@@ -45,8 +42,6 @@ export const postUploadVideo = async (req, res) => {
         title,
         description
     });
-    // console.log(newVideo);
-    //To Do: upload and save video
     res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -56,10 +51,8 @@ export const videoDetail = async (req, res) => {
     } = req;
     try {
         const video = await Video.findById(id);
-    console.log(video);
     res.render("videoDetail", { pageTitle : video.title, video});
     } catch (error) {
-        //console.log(error);
         res.redirect(routes.home);
     }
 };
@@ -97,9 +90,9 @@ export const deleteVideo = async (req, res) => {
     } = req;
     try {
         await Video.findOneAndDelete({_id : id});
-        res.render("deleteVideo", { pageTitle : "Delete Video", video});
-    } catch (error) {}
-    res.redirect(routes.home);
+        res.redirect(routes.home);
+        } catch (error) {res.redirect(routes.home);
+    }
 
 }
 
