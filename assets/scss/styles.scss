@@ -1,5 +1,7 @@
 @import "config/_variables.scss";
+@import "main.scss";
+@import "pages/home.scss";
 
 body {
-    background-color : $bgColor;
+    background-color : $niceColor;
 }
