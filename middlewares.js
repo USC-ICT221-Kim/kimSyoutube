@@ -8,10 +8,9 @@ export const localmiddleware = (req, res, next) => {
     res.locals.routes = routes;
 
    
-    res.locals.user = {
-        isAuthenticated: false,
-        id : 1
-    };
+    res.locals.user = req.user || null;
+    // eslint-disable-next-line no-console
+    console.log(req.user);
     next();
 }
 
