@@ -3,7 +3,7 @@ import routes from "../routes";
 import User from "../Models/User";
 
 export const getJoin = (req, res) => {
-    res.render("Join", { pageTitle : "Join"});
+    res.render("join", { pageTitle : "Join"});
 };
 
 export const postJoin = async (req, res, next) =>{
@@ -12,7 +12,7 @@ export const postJoin = async (req, res, next) =>{
     } = req;
     if (password !== password2){
         res.status(400);
-        res.render("Join", { pageTitle : "Join"});
+        res.render("join", { pageTitle : "Join"});
     } else {
        try {
         const user = await User({
@@ -32,7 +32,7 @@ export const postJoin = async (req, res, next) =>{
 
 
 export const getLogin = (req, res) => {
-    res.render("LogIN", { pageTitle : "Log In"})
+    res.render("login", { pageTitle : "Log In"})
 };
 
 export const postLogin = passport.authenticate("local", {

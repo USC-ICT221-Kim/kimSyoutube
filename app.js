@@ -27,8 +27,8 @@ app.use(cookieparser());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended : true}));
 app.use(morgan("dev"));
-app.use(
-    session({
+app.use
+    (session({
         secret: process.env.COOKIE_SECRET,
         resave: true,
         saveUninitialized: false
