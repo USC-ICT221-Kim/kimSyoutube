@@ -29,7 +29,42 @@ export const postJoin = async (req, res, next) =>{
 }
 };
 
+export const githubLogin = passport.authenticate("github");
 
+export const postGithubLogin = (req, res) =>{
+    res.redirect(routes.home);
+};
+
+// Todo: Fix this problem later (Github social Log in)
+// export const githubLoginCallback = function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   };
+
+export const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
+    const { _json: {id, avatarUrl, name, email}} = profile;
+    try {{
+        const user = await User.findOne({email});
+        if (user){
+            user.githubId = id;
+            user.save();
+            return cb(null, user);
+        }
+            const newUser = await User.create({
+                email,
+                name,
+                githubId: id,
+                avatarurl: avatarUrl
+            });
+            return cb(null, newUser);
+        }
+
+        
+    } catch (error) {
+        return cb(error);
+    }
+  };
 
 export const getLogin = (req, res) => {
     res.render("login", { pageTitle : "Log In"})
@@ -42,7 +77,7 @@ export const postLogin = passport.authenticate("local", {
 });
 
 export const logout = (req, res) => {
-    // To Do: Process of Log Out
+    req.logout();
     res.redirect(routes.home);
 };
 
