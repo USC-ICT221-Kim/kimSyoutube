@@ -2,13 +2,12 @@ import multer from "multer";
 import routes from "./routes";
 
 const multerVideo = multer({dest : "upload/videos/"});
+const multerAvatar = multer({dest : "upload/avatar/"});
 
 export const localmiddleware = (req, res, next) => {
     res.locals.siteName = "KimTube";
     res.locals.routes = routes;
-    res.locals.user = req.user || null;
-    // eslint-disable-next-line no-console
-    console.log(req.user);
+    res.locals.loggedUser = req.user || null;
     next();
 }
 
@@ -21,7 +20,7 @@ export const onlyPublic = (req, res, next) =>{
     {
         next();
     }
-}
+};
 
 export const onlyPrivate = (req, res, next) => {
     if (req.user)
@@ -31,6 +30,7 @@ export const onlyPrivate = (req, res, next) => {
     else{
         res.redirect(routes.home);
     }
-}
+};
 
 export const uploadVideo = multerVideo.single("videoFile");
+export const uploadAvatar = multerAvatar.single("avatar");

@@ -9,9 +9,10 @@ const SEARCH = "/search";
 // Users
 
 const USER = "/user";
-const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
+const USER_DETAIL = "/:id";
 const CHANGE_PASSWORD = "/change-password";
+const ME = "/me";
 
 // Videos
 
@@ -64,7 +65,8 @@ const routes = {
             return DELETE_VIDEO
         },
         gitHub: GITHUB,
-        githubCallback: GITHUB_CALLBACK
+        githubCallback: GITHUB_CALLBACK,
+        me: ME
 };
 
 export default routes;

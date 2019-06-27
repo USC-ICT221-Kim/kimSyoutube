@@ -11,6 +11,14 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(passport, {usernameField: "email"});
 
+UserSchema.statics.serializeUser = () =>(user, cb) => cb(null, user.id);
+
+// eslint-disable-next-line func-names
+UserSchema.statics.deserializeUser = function(){
+    const self = this;
+    return (id, cb) => self.findById(id, cb);
+};
+
 const model = mongoose.model("User", UserSchema);
 
 export default model;

@@ -35,19 +35,18 @@ export const postGithubLogin = (req, res) =>{
     res.redirect(routes.home);
 };
 
-// Todo: Fix this problem later (Github social Log in)
-// export const githubLoginCallback = function(accessToken, refreshToken, profile, cb) {
-//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   };
+// export const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
 
-export const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
-    const { _json: {id, avatarUrl, name, email}} = profile;
+
+export const githubLoginCallback = async (_, __, profile, cb) => {
+    const { 
+        _json: {id, avatar_url: avatarUrl, name, email}
+    } = profile;
     try {{
         const user = await User.findOne({email});
         if (user){
             user.githubId = id;
+            user.avatarUrl = avatarUrl;
             user.save();
             return cb(null, user);
         }
@@ -55,12 +54,10 @@ export const githubLoginCallback = async (accessToken, refreshToken, profile, cb
                 email,
                 name,
                 githubId: id,
-                avatarurl: avatarUrl
+                avatarUrl
             });
             return cb(null, newUser);
-        }
-
-        
+        }    
     } catch (error) {
         return cb(error);
     }
@@ -81,10 +78,43 @@ export const logout = (req, res) => {
     res.redirect(routes.home);
 };
 
+export const getMe = (req,res) =>{
+    res.render("userDetail", { pageTitle : "User Detail", user: req.user });
+}
 
-export const userDetail = (req, res) => res.render("userDetail", { pageTitle : "User Detail"});
-export const editProfile = (req, res) => res.render("editProfile", { pageTitle : "Edit Profile"});
-export const changePassword = (req, res) => res.render("changePassword", { pageTitle : "Change Password"});
+export const userDetail = async (req, res) => {
+    const { params: { id } } = req;
+    try {
+        const user = await User.findById(id);
+        res.render("userDetail", { pageTitle : "User Detail", user});
+    } catch (error) {
+        res.redirect(routes.home);
+    }
+}
+
+
+export const getEditProfile = (req, res) => {
+    res.render("editProfile", { pageTitle : "Edit Profile"});
+}
+
+export const postEditProfile = async (req, res) => {
+    const { 
+        body: {name, email},
+        file
+    } = req;
+    try {
+      await User.findByIdAndUpdate(req.user.id,{
+          name,
+          email,
+          avatarUrl: file ? file.path : req.user.avatarUrl
+      });  
+      res.redirect(routes.me);
+    } catch (error) {
+        res.render("editProfile", { pageTitle: "Edit Profile" });
+    }
+};
+
+export const getChangePassword = (req, res) => res.render("changePassword", { pageTitle : "Change Password"});
 
 
 // export const user = (req, res) => res.render ("User", { pageTitle : "User"});
