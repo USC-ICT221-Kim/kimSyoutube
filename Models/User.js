@@ -7,14 +7,18 @@ const UserSchema = new mongoose.Schema({
     avatarUrl : String,
     facebookId : Number,
     githubId : Number,
-    comments : [{
+    comments : [
+        {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
-    }],
-    videos : [{
+    }
+    ],
+    videos : [
+        {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Video"
-    }],
+    }
+    ],
 });
 
 UserSchema.plugin(passport, {usernameField: "email"});

@@ -5,8 +5,7 @@ block content
     .video-detail__container
         +videoPlayer({
             src:video.fileUrl
-        })
-            
+        })  
         .video__info
             if loggedUser && video.creator.id ===loggedUser.id 
                 a(href=routes.editVideo(video.id)) 

@@ -33,8 +33,8 @@ export const search = async (req, res) => {
 export const getUploadVideo = (req, res) => res.render("uploadVideo", { pageTitle : "Upload Video"});
 
 export const postUploadVideo = async (req, res) => {
-    const { body :
-        {title, description},
+    const { 
+        body : { title, description },
         file : { path }
     } = req;
     const newVideo = await Video.create({
@@ -54,8 +54,8 @@ export const videoDetail = async (req, res) => {
     } = req;
     try {
         const video = await Video.findById(id).populate("creator");
-    res.render("videoDetail", { pageTitle : video.title, video});
-    } catch (error) {
+        res.render("videoDetail", { pageTitle: video.title, video});
+    }   catch (error) {
         res.redirect(routes.home);
     }
 };
@@ -69,9 +69,10 @@ export const getEditVideo =  async (req, res) => {
     try {
         const video = await Video.findById(id);
         if (video.creator !== req.user.id){
-            throw Error();
-        } else {
             res.render("editVideo", { pageTitle : `Edit ${video.title}`, video});
+        }   else {
+            throw Error();
+
         }
     }   catch (error) {
         res.redirect(routes.home);
@@ -80,13 +81,13 @@ export const getEditVideo =  async (req, res) => {
     
 export const postEditVideo = async (req, res) => {
     const {
-        params: {id},
-        body : {title, description}
+        params: { id },
+        body : { title, description }
     } = req;
     try {
         // No need to store it
         // Simply update Video body
-        await Video.findOneAndUpdate({_id : id},{title, description});
+        await Video.findOneAndUpdate({ _id : id },{title, description});
         res.redirect(routes.videoDetail(id));
     } catch (error) {
         res.redirect(routes.home);
@@ -95,14 +96,15 @@ export const postEditVideo = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
     const {
-        params : {id}
+        params : { id }
     } = req;
     try {
         const video = await Video.findById(id);
         if (video.creator !== req.user.id){
-            throw Error();
-        } else {
             res.redirect(routes.home);
+        } else {
+            throw Error();
+
         }
         await Video.findOneAndDelete({_id : id});
         } catch (error) {res.redirect(routes.home);

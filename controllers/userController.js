@@ -127,6 +127,7 @@ export const postChangePassword = async(req, res) => {
         if (newPassword !== newPassword1){
             res.status(400);
             res.redirect(`/user/${routes.changePassword}`);
+            return;
         }
         
         await req.user.changePassword(oldPassword, newPassword);
