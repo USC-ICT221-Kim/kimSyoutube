@@ -51,7 +51,7 @@ function handlePlayClick() {
 }
 
 function handleForwardClick(){
-  videoPlayer.webkitFastSeek(10);
+  videoPlayer.fastSeek(20);
 }
 
 function handleVolumClick(){
