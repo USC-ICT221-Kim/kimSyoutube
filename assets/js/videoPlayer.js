@@ -5,8 +5,12 @@ const volumeButton = document.getElementById("jsVolumeButton");
 const fullScreenButton = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+const volumeRange = document.getElementById("jsVolume");
+const forwardButton = document.getElementById("jsForwardButton")
+const backwardButton = document.getElementById("jsBackwardButton")
 
-const formatDate = seconds => {
+
+const timeFormat = seconds => {
   const secondsNumber = parseInt(seconds, 10);
   let hours = Math.floor(secondsNumber / 3600);
   let minutes = Math.floor((secondsNumber - hours * 3600) / 60);
@@ -24,12 +28,13 @@ const formatDate = seconds => {
   return `${hours}:${minutes}:${totalSeconds}`;
 };
 
+
 function getVideoTime(){
-  currentTime.innerHTML = formatDate(videoPlayer.videoTime);
+  currentTime.innerHTML = timeFormat(Math.floor(videoPlayer.currentTime));
 }
 
 function setTotalTime(){
-  const totalTimeString = formatDate(videoPlayer.duration);
+  const totalTimeString = timeFormat(videoPlayer.duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getVideoTime, 1000);
 }
@@ -45,12 +50,18 @@ function handlePlayClick() {
   }
 }
 
+function handleForwardClick(){
+  videoPlayer.webkitFastSeek(10);
+}
+
 function handleVolumClick(){
   if(videoPlayer.muted){
     videoPlayer.muted = false;
     volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+    volumeRange.value = videoPlayer.volume;
   }
   else {
+    volumeRange.value = 0;
     videoPlayer.muted = true;
     volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
   }
@@ -70,12 +81,27 @@ function exitFullScreen(){
   fullScreenButton.addEventListener("click", handleScreenClick)
 }
 
+function handleEnded(){
+  videoPlayer.currentTime = 0;
+  playButton.innerHTML = '<i class="fas fa-play"></i>';
+}
+
+function handleVolume(event){
+  const { 
+    target : {value }
+  } = event;
+  videoPlayer.volume = value;
+}
 
 function init() {
+  videoPlayer.volume = 0.5;
   playButton.addEventListener("click", handlePlayClick);
   volumeButton.addEventListener("click", handleVolumClick);
   fullScreenButton.addEventListener("click", handleScreenClick);
+  forwardButton.addEventListener("click", handleForwardClick);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  videoPlayer.addEventListener("ended", handleEnded);
+  volumeRange.addEventListener("input", handleVolume);
 }
 
 if (videoContainer) {
