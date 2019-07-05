@@ -6,9 +6,8 @@ const fullScreenButton = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
-const forwardButton = document.getElementById("jsForwardButton")
+const forwardButton = document.querySelector("#jsForwardButton")
 const backwardButton = document.getElementById("jsBackwardButton")
-
 
 const timeFormat = seconds => {
   const secondsNumber = parseInt(seconds, 10);
@@ -50,7 +49,7 @@ function handlePlayClick() {
   }
 }
 
-function handleForwardClick(){
+function handleForwardClick (){
   videoPlayer.fastSeek(20);
 }
 
