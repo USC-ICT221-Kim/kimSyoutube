@@ -8,12 +8,12 @@ block content
             img.avatar(src=user.avatarUrl)
             h4.profile__username=user.name
     if user.id === loggedUser.id
-        .user-profile__bts
+        .user-profile__button
             a(href=`/user${routes.editProfile}`) 
                 button Edit Profile
             a(href=`/user${routes.changePassword}`)
                 button Change Password
-    .video
+    .home__videos
         each demoVideo in user.videos
             +videoBlock({
                 id: demoVideo.id,

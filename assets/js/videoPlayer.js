@@ -6,8 +6,11 @@ const fullScreenButton = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
-const forwardButton = document.querySelector("#jsForwardButton")
-const backwardButton = document.getElementById("jsBackwardButton")
+const forwardButton = document.getElementById("jsForwardButton");
+const backwardButton = document.getElementById("jsBackwardButton");
+
+let intervalFwd;
+let intervalRwd;
 
 const timeFormat = seconds => {
   const secondsNumber = parseInt(seconds, 10);
@@ -27,6 +30,56 @@ const timeFormat = seconds => {
   return `${hours}:${minutes}:${totalSeconds}`;
 };
 
+function windBackward() {
+  if(videoPlayer.currentTime <= 3) {
+    backwardButton.classList.remove('active');
+    clearInterval(intervalRwd);
+    videoPlayer.stop();
+  } else {
+    videoPlayer.currentTime -= 3;
+  }
+}
+
+function windForward() {
+  if(videoPlayer.currentTime >= videoPlayer.duration - 3) {
+    forwardButton.classList.remove('active');
+    clearInterval(intervalFwd);
+    videoPlayer.stop();
+  } else {
+    videoPlayer.currentTime += 3;
+  }
+}
+
+function mediaBackward() {
+  clearInterval(intervalFwd);
+  forwardButton.classList.remove('active');
+
+  if(backwardButton.classList.contains('active')) {
+    backwardButton.classList.remove('active');
+    clearInterval(intervalRwd);
+    videoPlayer.play();
+  } else {
+    backwardButton.classList.add('active');
+    videoPlayer.pause();
+    intervalRwd = setInterval(windBackward, 200);
+  }
+}
+
+function mediaForward() {
+  clearInterval(intervalRwd);
+  backwardButton.classList.remove('active');
+
+  if(forwardButton.classList.contains('active')) {
+    forwardButton.classList.remove('active');
+    clearInterval(intervalFwd);
+    videoPlayer.play();
+  } else {
+    forwardButton.classList.add('active');
+    videoPlayer.pause();
+    intervalFwd = setInterval(windForward, 200);
+  }
+}
+
 
 function getVideoTime(){
   currentTime.innerHTML = timeFormat(Math.floor(videoPlayer.currentTime));
@@ -37,6 +90,7 @@ function setTotalTime(){
   totalTime.innerHTML = totalTimeString;
   setInterval(getVideoTime, 1000);
 }
+
 
 function handlePlayClick() {
   if (videoPlayer.paused) {
@@ -49,9 +103,7 @@ function handlePlayClick() {
   }
 }
 
-function handleForwardClick (){
-  videoPlayer.fastSeek(20);
-}
+
 
 function handleVolumClick(){
   if(videoPlayer.muted){
@@ -97,10 +149,11 @@ function init() {
   playButton.addEventListener("click", handlePlayClick);
   volumeButton.addEventListener("click", handleVolumClick);
   fullScreenButton.addEventListener("click", handleScreenClick);
-  forwardButton.addEventListener("click", handleForwardClick);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
   videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleVolume);
+  backwardButton.addEventListener("click", mediaBackward);
+  forwardButton.addEventListener("click", mediaForward);
 }
 
 if (videoContainer) {

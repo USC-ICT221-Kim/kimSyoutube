@@ -3,9 +3,24 @@ const recordButton = document.getElementById("jsRecordButton");
 const videoPreview = document.getElementById("jsVideoPreview");
 
 let streamObject;
+let videoRecorder;
+
+const handleRecordedVideoData  = event =>{
+    const { data: videoFile } = event; 
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(videoFile);
+    link.download = "recorded.webm";
+    document.body.appendChild(link);
+    link.click();
+}
+
+
 
 const startRecording = () =>{
-    console.log(streamObject);
+    videoRecorder = new MediaRecorder(streamObject);
+    videoRecorder.start();
+    videoRecorder.addEventListener("dataavailable", handleRecordedVideoData);
+    recordButton.addEventListener("click", stopRecording);    
 }
 
 const getRecordedVideo = async () => {
@@ -25,6 +40,14 @@ const getRecordedVideo = async () => {
     }   finally {
         recordButton.removeEventListener("click", getRecordedVideo);
     }
+}
+
+const stopRecording = () =>{
+    videoRecorder.stop();     
+    streamObject.stop();
+    recordButton.removeEventListener("click", stopRecording);
+    recordButton.addEventListener("click", getRecordedVideo);
+    recordButton.innerHTML = "Start Recording";
 }
 
 function init(){
