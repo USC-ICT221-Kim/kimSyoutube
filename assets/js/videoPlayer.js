@@ -9,6 +9,13 @@ const volumeRange = document.getElementById("jsVolume");
 const forwardButton = document.getElementById("jsForwardButton");
 const backwardButton = document.getElementById("jsBackwardButton");
 
+const registerView = () =>{
+  const videoId = window.location.href.split("video")[1];
+  fetch(`/api/${videoId}/view`, {
+    method: "POST"
+  });
+}
+
 let intervalFwd;
 let intervalRwd;
 
@@ -30,11 +37,22 @@ const timeFormat = seconds => {
   return `${hours}:${minutes}:${totalSeconds}`;
 };
 
+function handlePlayClick() {
+  if (videoPlayer.paused) {
+    videoPlayer.play();
+    playButton.innerHTML = '<i class="fas fa-pause"></i>';
+  } else {
+    videoPlayer.pause();
+    playButton.innerHTML = '<i class="fas fa-play"></i>';
+
+  }
+}
+
 function windBackward() {
   if(videoPlayer.currentTime <= 3) {
     backwardButton.classList.remove('active');
     clearInterval(intervalRwd);
-    videoPlayer.stop();
+    handlePlayClick();
   } else {
     videoPlayer.currentTime -= 3;
   }
@@ -44,7 +62,7 @@ function windForward() {
   if(videoPlayer.currentTime >= videoPlayer.duration - 3) {
     forwardButton.classList.remove('active');
     clearInterval(intervalFwd);
-    videoPlayer.stop();
+    handlePlayClick();
   } else {
     videoPlayer.currentTime += 3;
   }
@@ -91,20 +109,6 @@ function setTotalTime(){
   setInterval(getVideoTime, 1000);
 }
 
-
-function handlePlayClick() {
-  if (videoPlayer.paused) {
-    videoPlayer.play();
-    playButton.innerHTML = '<i class="fas fa-pause"></i>';
-  } else {
-    videoPlayer.pause();
-    playButton.innerHTML = '<i class="fas fa-play"></i>';
-
-  }
-}
-
-
-
 function handleVolumClick(){
   if(videoPlayer.muted){
     videoPlayer.muted = false;
@@ -133,6 +137,7 @@ function exitFullScreen(){
 }
 
 function handleEnded(){
+  registerView();
   videoPlayer.currentTime = 0;
   playButton.innerHTML = '<i class="fas fa-play"></i>';
 }
