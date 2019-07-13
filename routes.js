@@ -32,6 +32,11 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 const API = "/api";
 const REGISTER_VIEW ="/:id/view";
 
+// Comment
+
+const ADD_COMMENT = "/:id/comment";
+const DELETE_COMMENT = "/:id/comment/delete";
+
 const routes = {
     home: HOME,
     join: JOIN,
@@ -73,7 +78,9 @@ const routes = {
         githubCallback: GITHUB_CALLBACK,
         me: ME,
         api: API,
-        registerView: REGISTER_VIEW
+        registerView: REGISTER_VIEW,
+        addComment : ADD_COMMENT,
+        deleteComment : DELETE_COMMENT
 };
 
 export default routes;

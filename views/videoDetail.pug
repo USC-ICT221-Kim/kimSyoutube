@@ -7,17 +7,30 @@ block content
             src:video.fileUrl
         })  
         .video__info
-            if loggedUser && video.creator.id ===loggedUser.id 
+            if loggedUser && video.creator.id === loggedUser.id 
                 a(href=routes.editVideo(video.id)) 
                     button Edit Video
             h5.video__title=video.title
-            span.video_views=video.views
             p.video__descprition=video.description
-        .video__comments
-            if video.comments.length == 1
+            if video.view === 1
+                span.video__views 1 View
+            else
+                span.video__views #{video.views} Views
+            .video__creator
+            | Uploaded by 
+            a(href=routes.userDetail(video.creator.id))=video.creator.name    
+        .video__comment
+            if video.comments.length === 1
                 span.video__comment-number 1 Comment
             else
                 span.video__comment-number #{video.comments.length} Comments    
-        .video__author
-            |Uploaded by 
-            a(href=routes.userDetail(video.creator.id))=video.creator.name
+        form.add__comment#jsAddComment
+            input(type="text", placeholder="Leave your comment~")
+        ul.video__comment-list#jsCommentList
+            each comment in video.comments
+                li
+                    if loggedUser && (String(comment.creator) === loggedUser.id)
+                        span.jsCommnet=comment.text
+                            button(id=String(comment._id))
+                    else        
+                        span=comment.text
