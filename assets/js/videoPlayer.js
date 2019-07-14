@@ -134,6 +134,15 @@ function handleScreenClick(){
 function exitFullScreen(){
   fullScreenButton.innerHTML = '<i class="fas fa-expand"></i>';
   fullScreenButton.addEventListener("click", handleScreenClick)
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
 }
 
 function handleEnded(){

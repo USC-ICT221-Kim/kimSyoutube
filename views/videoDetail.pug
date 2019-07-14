@@ -31,6 +31,6 @@ block content
                 li
                     if loggedUser && (String(comment.creator) === loggedUser.id)
                         span.jsCommnet=comment.text
-                            button(id=String(comment._id))
+                            button(id=String(comment._id)) ❌
                     else        
                         span=comment.text

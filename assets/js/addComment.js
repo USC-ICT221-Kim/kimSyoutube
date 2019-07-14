@@ -49,6 +49,7 @@ const sendComment = async comment => {
         }
     });
     if(response.status === 200){
+      // eslint-disable-next-line no-underscore-dangle
       addComment(comment, response.data._id);
     }
 };

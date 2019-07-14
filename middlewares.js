@@ -5,7 +5,7 @@ const multerVideo = multer({dest : "upload/videos/"});
 const multerAvatar = multer({dest : "upload/avatar/"});
 
 export const localmiddleware = (req, res, next) => {
-    res.locals.siteName = "KimTube";
+    res.locals.siteName = "KimS-WebSite";
     res.locals.routes = routes;
     res.locals.loggedUser = req.user || null;
     next();

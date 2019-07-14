@@ -1,5 +1,8 @@
 @import "config/_variables.scss";
+@import "config/reset.scss";
+@import "config/avatarImage.scss";
 @import "main.scss";
+
 @import "pages/home.scss";
 @import "pages/userProfile.scss";
 @import "pages/videoDetail.scss";
@@ -7,8 +10,7 @@
 @import "partials/header.scss";
 @import "partials/footer.scss";
 @import "partials/videoBlock.scss";
+@import "partials/socialLogIn.scss";
+@import "partials/videoPlayer.scss";
 
 
-body {
-    background-color :#e4e39c;
-}
