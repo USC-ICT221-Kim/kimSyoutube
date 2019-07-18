@@ -1,7 +1,7 @@
 {
   "name": "kimsyoutube",
   "version": "1.0.0",
-  "description": "Youtube Full Stack Cloning Project with Vanilla and Node JS",
+  "description": "Full Stack Web Programming Project with Vanilla and Node JS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

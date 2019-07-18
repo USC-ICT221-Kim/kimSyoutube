@@ -16,7 +16,6 @@ import apiRouter from './Router/apiRouter';
 
 import "./passport";
 
-
 const app = express();
 
 const CookieStore = mongoStore(session);
@@ -46,9 +45,11 @@ app.use(passport.session());
 app.use(localmiddleware);
 
 app.use(routes.home, globalRouter);
+app.use(routes.gameHome, globalRouter);
 app.use(routes.user, userRouter);
 app.use(routes.video, videoRouter);
 app.use(routes.api, apiRouter);
+
 
 
 export default app;

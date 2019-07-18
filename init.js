@@ -1,16 +1,23 @@
+import "./Models/Video";
+import "./Models/Comment";
+import "./Models/User";
+
+import SocketIO from "socket.io";
 import dotenv from "dotenv";
 import "./db";
 import app from "./app";
 
 dotenv.config();
 
-import "./Models/Video";
-import "./Models/Comment";
-import "./Models/User";
 
 
 const PORT = process.env.PORT || 4000;
 
-const handlelistening = () => console.log(`Listening on: http://localhost:4000`);
+// eslint-disable-next-line no-console
+const handlelistening = () => console.log(`✅ Listening on: http://localhost:4000`);
 
-app.listen(PORT, handlelistening);
+const server = app.listen(PORT, handlelistening);
+
+const io = SocketIO.listen(server);
+
+io.on("connection", () => console.log("Somebody Conneted"));

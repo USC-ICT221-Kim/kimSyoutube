@@ -26,6 +26,7 @@ const handleClick = async event => {
 };
 
 const addEvent = () => {
+  // eslint-disable-next-line func-names
   comment.forEach(function(el) {
     const deleteButton = el.childNodes[1];
     deleteButton.addEventListener("click", handleClick);

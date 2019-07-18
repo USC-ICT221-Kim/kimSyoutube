@@ -37,6 +37,10 @@ const REGISTER_VIEW ="/:id/view";
 const ADD_COMMENT = "/:id/comment";
 const DELETE_COMMENT = "/:id/comment/delete";
 
+// Drawing Game
+
+const GAMEHOME ="/gamehome";
+
 const routes = {
     home: HOME,
     join: JOIN,
@@ -80,7 +84,8 @@ const routes = {
         api: API,
         registerView: REGISTER_VIEW,
         addComment : ADD_COMMENT,
-        deleteComment : DELETE_COMMENT
+        deleteComment : DELETE_COMMENT,
+        gameHome : GAMEHOME
 };
 
 export default routes;
