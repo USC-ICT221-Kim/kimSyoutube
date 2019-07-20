@@ -2,36 +2,40 @@ extends layouts/main
 include mixins/videoBlock
 
 block content 
-    .home__videos
-        each demoVideo in videos
-            +videoBlock({
-                id: demoVideo.id,
-                title: demoVideo.title,
-                view: demoVideo.view,
-                videoFile: demoVideo.fileUrl
-            })
-            +videoBlock({
-                id: demoVideo.id,
-                title: demoVideo.title,
-                view: demoVideo.view,
-                videoFile: demoVideo.fileUrl
-            })
-            +videoBlock({
-                id: demoVideo.id,
-                title: demoVideo.title,
-                view: demoVideo.view,
-                videoFile: demoVideo.fileUrl
-            })
-            +videoBlock({
-                id: demoVideo.id,
-                title: demoVideo.title,
-                view: demoVideo.view,
-                videoFile: demoVideo.fileUrl
-            })
-            +videoBlock({
-                id: demoVideo.id,
-                title: demoVideo.title,
-                view: demoVideo.view,
-                videoFile: demoVideo.fileUrl
-            })
-            
+
+        script(src="/socket.io/socket.io.js")
+        script(src="./statistic/index.js")
+
+        .home__videos
+            each demoVideo in videos
+                +videoBlock({
+                    id: demoVideo.id,
+                    title: demoVideo.title,
+                    view: demoVideo.view,
+                    videoFile: demoVideo.fileUrl
+                })
+                +videoBlock({
+                    id: demoVideo.id,
+                    title: demoVideo.title,
+                    view: demoVideo.view,
+                    videoFile: demoVideo.fileUrl
+                })
+                +videoBlock({
+                    id: demoVideo.id,
+                    title: demoVideo.title,
+                    view: demoVideo.view,
+                    videoFile: demoVideo.fileUrl
+                })
+                +videoBlock({
+                    id: demoVideo.id,
+                    title: demoVideo.title,
+                    view: demoVideo.view,
+                    videoFile: demoVideo.fileUrl
+                })
+                +videoBlock({
+                    id: demoVideo.id,
+                    title: demoVideo.title,
+                    view: demoVideo.view,
+                    videoFile: demoVideo.fileUrl
+                })
+                

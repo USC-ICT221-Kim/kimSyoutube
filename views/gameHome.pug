@@ -2,4 +2,6 @@ extends layouts/main
 include mixins/videoBlock
 
 block content
-    p This is Game HomePage
+        p This is Game HomePage
+        script(src="/socket.io/socket.io.js")
+        script(src="./statistic/index.js")

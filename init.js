@@ -20,4 +20,15 @@ const server = app.listen(PORT, handlelistening);
 
 const io = SocketIO.listen(server);
 
-io.on("connection", () => console.log("Somebody Conneted"));
+io.on("connection", socket =>{
+    socket.on("newMessage", ({message}) => {
+        socket.broadcast.emit("MessageNotification", 
+        { message, 
+            nickname:socket.nickname || "Unknoen"
+        
+         });
+    });
+    socket.on("setNickName", ({nickname}) =>{
+        socket.nickname = nickname;
+    })
+});

@@ -11,6 +11,7 @@ export const postJoin = async (req, res, next) =>{
         body: {name, email, password, password2}
     } = req;
     if (password !== password2){
+        req.flash('error', 'Password Do not Match!!!');
         res.status(400);
         res.render("join", { pageTitle : "Join"});
     } else {
@@ -69,12 +70,15 @@ export const getLogin = (req, res) => {
 
 export const postLogin = passport.authenticate("local", {
     successRedirect: routes.home,
-    failureRedirect: routes.login
+    failureRedirect: routes.login,
+    successFlash: "Welcome to KimS Web page",
+    failureFlash: "Cannot Log In... Please Check email or password"
 
 });
 
 export const logout = (req, res) => {
     req.logout();
+    req.flash('info', 'GoodBye~');
     res.redirect(routes.home);
 };
 

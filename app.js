@@ -6,6 +6,7 @@ import bodyparser from 'body-parser';
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import flash from "express-flash";
 import mongoStore from "connect-mongo";
 import { localmiddleware } from './middlewares';
 import routes from './routes';
@@ -39,6 +40,9 @@ app.use
         store: new CookieStore({mongooseConnection: mongoose.connection})
     })
 );
+
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
